@@ -14,6 +14,7 @@ export default function App() {
   let [state, setState] = useState();
 
   // search for a symbol
+  // search both nasdaq and nyse
   function submitSearch(search) {
     Promise.all([
       fetch(
@@ -46,7 +47,7 @@ export default function App() {
   // after choosing a symbol, React sets 'current symbol'
   // on page with fetched info
   function chooseSymbol(sym) {
-    fetch(ENDPOINT + `/profile/${sym}?apikey=` + process.env.REACT_APP_API_KEY)
+    fetch(ENDPOINT + `/profile/${sym.trim().toUpperCase()}?apikey=` + process.env.REACT_APP_API_KEY)
       .then((res) => res.json())
       .then((data) => {
         setState(data);
